@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_DB: test_db
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - 5432:5432
+  api:
+    build: .
+    depends_on:
+      - postgres
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: "172.30.4.241" # JUST MODIFY THIS VALUE
+      DB_PORT: 5432
+      DB_USER: root
+      DB_PW: root
+      DB_NAME: test_db
